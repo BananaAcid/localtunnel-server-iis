@@ -3,7 +3,7 @@
 1. install iisnode on IIS in the following order:
  - Rewrite Module - https://www.iis.net/downloads/microsoft/url-rewrite
  - NodeJS - https://nodejs.org/en/
- - iisnode - https://github.com/tjanczuk/iisnode/releases/
+ - iisnode - https://github.com/azure/iisnode/wiki/iisnode-releases
 
 2. create a folder with this files 
  - Either `git pull https://github.com/BananaAcid/localtunnel-server-iis.git .` or download this repo as zip and extract it
