@@ -8,11 +8,14 @@
 2. create a folder with this files 
  - Either `git pull https://github.com/BananaAcid/localtunnel-server-iis.git .` or download this repo as zip and extract it
  - `npm i` will download all dependencies (node libraries)
+
+3. Firewall: "Allow an app or feature through WIndows Firewall" -> "Allow another app..." -> "Browse..." -> "C:\Program Files\nodejs\node.exe" + open -> "Network types..." -> tick the missing 'Private' ! -> OK -> Add
+ - THIS PART IS IMPORTANT !
  
-3. create a web site in IIS, pointing to the folder
+4. create a web site in IIS, pointing to the folder
  - bind to port 80, and sub-domain configured in iisnode.main.js (if you do not use a subdomain, iisnode.main.js does not need to be configured with this)
 
-4. stop and start the web site in IIS (just to be sure) -> now accessing the url defined in binding, you should get redirected to the localtunnel homepage. Using the localtunnel client, you should get a tunnel.
+5. stop and start the web site in IIS (just to be sure) -> now accessing the url defined in binding, you should get redirected to the localtunnel homepage. Using the localtunnel client, you should get a tunnel.
 
 Note: the port is passed from iisnode to the index.js by process.env.PORT (that is, a pipe because of iisnode). So no need to configure.
 
