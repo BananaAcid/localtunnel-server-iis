@@ -13,7 +13,8 @@
  - THIS PART IS IMPORTANT !
  
 4. create a web site in IIS, pointing to the folder
- - bind to port 80, and sub-domain configured in iisnode.main.js (if you do not use a subdomain, iisnode.main.js does not need to be configured with this)
+ - bind to port 80, and to subdomain configured in iisnode.main.js (if you do not use a subdomain, iisnode.main.js does not need to be configured with this)
+ - if you use a subdomain binding: `subdomain.server.tld` AND `*.subdomain.server.tld` are required 
 
 5. stop and start the web site in IIS (just to be sure) -> now accessing the url defined in binding, you should get redirected to the localtunnel homepage. Using the localtunnel client, you should get a tunnel.
 
