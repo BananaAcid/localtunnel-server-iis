@@ -1,6 +1,55 @@
-# localtunnel-server
+# localtunnel-server-iis
 
-[![Build Status](https://travis-ci.org/localtunnel/server.svg?branch=master)](https://travis-ci.org/localtunnel/server)
+1. install iisnode on IIS in the following order:
+ - Rewrite Module - https://www.iis.net/downloads/microsoft/url-rewrite
+ - NodeJS - https://nodejs.org/en/
+ - iisnode - https://github.com/tjanczuk/iisnode/releases/
+
+2. create a folder with this files 
+ - Either `git pull https://github.com/BananaAcid/localtunnel-server-iis.git .` or download this repo as zip and extract it
+ - `npm i` will download all dependencies (node libraries)
+ 
+3. create a web site in IIS, pointing to the folder
+ - bind to port 80, and sub-domain configured in iisnode.main.js (if you do not use a subdomain, iisnode.main.js does not need to be configured with this)
+
+4. stop and start the web site in IIS (just to be sure) -> now accessing the url defined in binding, you should get redirected to the localtunnel homepage. Using the localtunnel client, you should get a tunnel.
+
+Note: the port is passed from iisnode to the index.js by process.env.PORT (that is, a pipe because of iisnode). So no need to configure.
+
+## Testing the server
+
+At the commandline, use `node iisnode.main.js` to test it.
+
+## Using the client
+
+You need to reference the domain, that is bound at IIS: `lt -h …domain… -p 1234` (port 1234 is the local port to forward to the localtunnel server).
+
+
+## To install node, you can use `nvm`.
+On windows as well, in powershell:
+
+    # install module
+    PS  Install-Module -Name power-nvm
+    # fix missing ref
+    PS  Add-Type -AssemblyName System.IO.Compression.FileSystem
+
+    # install and set default version
+    PS  nvm install latest
+    PS  nvm default latest
+
+one-liner:
+    
+    PS  Install-Module -Name power-nvm ; Add-Type -AssemblyName System.IO.Compression.FileSystem ; nvm install latest ; nvm default latest
+
+
+# reference
+This is the normal Localtunnel-Server (https://github.com/localtunnel/server) but with additional files for Heroku and IIS. The original commands are still working.
+
+
+-----
+-----
+
+# Original:
 
 localtunnel exposes your localhost to the world for easy testing and sharing! No need to mess with DNS or deploy just to have others test out your changes.
 
@@ -52,19 +101,3 @@ Create a new tunnel. A LocalTunnel client posts to this enpoint to request a new
 ### GET /api/status
 
 General server information.
-
-## Deploy
-
-You can deploy your own localtunnel server using the prebuilt docker image.
-
-**Note** This assumes that you have a proxy in front of the server to handle the http(s) requests and forward them to the localtunnel server on port 3000. You can use our [localtunnel-nginx](https://github.com/localtunnel/nginx) to accomplish this.
-
-If you do not want ssl support for your own tunnel (not recommended), then you can just run the below with `--port 80` instead.
-
-```
-docker run -d \
-    --restart always \
-    --name localtunnel \
-    --net host \
-    defunctzombie/localtunnel-server:latest --port 3000
-```
